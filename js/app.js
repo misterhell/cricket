@@ -19,6 +19,7 @@ let app = {
 
     toggleToPWA: function () {
         this.hide(downloadBtn)
+        this.hide(installBtn)
         this.show(redirectButton)
     },
 
@@ -115,29 +116,41 @@ let app = {
             })
     },
 
+    pwaToggle: function (pwa) {
+        if (pwa) {
+            // show tracking button
+            // make logic for adding to track url all from db
+            // show install button
+            app.toggleToPWA()
+        } else {
+            // show install button
+            app.toggleToSite()
+        }
+    },
+
 
     initPWAChecker: function () {
         // STANDALONE PWA CHECKER EVENT
+
+        // @see https://stackoverflow.com/a/40932368/8230309
+        var isInWebAppiOS = (window.navigator.standalone === true);
+        var isInWebAppChrome = (window.matchMedia('(display-mode: standalone)').matches);
+
+        app.pwaToggle(isInWebAppiOS || isInWebAppChrome)
+
+        // the same code but in listener to show redirect button right after install
+        // because previous code works only for already installed app
         window
             .matchMedia('(display-mode: standalone)')
             .addEventListener('change', ({matches}) => {
-                if (matches) {
-                    // show tracking button
-                    // make logic for adding to track url all from db
-                    console.log('It`s pwa!')
-                    // show install button
-                    app.toggleToPWA()
-                } else {
-                    // show install button
-                    app.toggleToSite()
-                }
+                app.pwaToggle(matches)
             })
     },
 
     installSW: function () {
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function () {
-                navigator.serviceWorker.register('/sw.js').then(
+                navigator.serviceWorker.register('/OneSignalSDKWorker.js').then(
                     function (registration) {
                         console.log('ServiceWorker registration successful with scope: ', registration.scope);
                     },
