@@ -50,7 +50,7 @@ let app = {
 
         var interval = setInterval(function () {
             progress_graph.style.width = partialWidth * iteration + 'px';
-            progress_word.innerHTML = round(sizePartial * iteration, 2) + ' / ' + size;
+            progress_word.innerHTML = round(sizePartial * iteration, 2) + ' MB / ' + size;
             if (time <= iteration) {
                 clearInterval(interval)
                 finishCallback()
