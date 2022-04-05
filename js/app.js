@@ -18,14 +18,39 @@ let app = {
     },
 
     toggleToPWA: function () {
-        this.hide(downloadBtn)
-        this.hide(installBtn)
-        this.show(redirectButton)
+        this.hide(downloadBtn);
+        this.hide(installBtn);
+        this.show(redirectButton);
+        this.setCookieParamsToRdrUrl();
     },
 
     toggleToSite: function () {
         this.show(downloadBtn)
         this.hide(redirectButton)
+    },
+
+    getCookies: function () {
+        return document.cookie.split(";").reduce( (ac, cv, i) => Object.assign(ac, {[cv.split('=')[0]]: cv.split('=')[1]}), {});
+    },
+
+    setCookieParamsToRdrUrl: function () {
+        var cookies = this.getCookies()
+        var btn = document.querySelector(redirectButton)
+
+        var href = btn.getAttribute('data-href')
+
+        for (var i in cookies) {
+            // sometimes facebook cookie has value with space " _fbc"
+            var param = i.trim()
+
+            if (param == '_fbc' || param == '_fbp') {
+                param = param.replace('_', '')
+            }
+
+            href += ('&' + param + '=' + cookies[i])
+        }
+
+        btn.setAttribute('data-href', href)
     },
 
     startLoader: function (finishCallback) {
@@ -87,8 +112,8 @@ let app = {
         this.installSW();
         this.initDB();
         this.initPWAChecker();
-        this.initClickRedirect();
         this.initInstallApp();
+        this.initClickRedirect();
     },
 
     initInstallApp: function () {

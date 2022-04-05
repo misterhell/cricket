@@ -847,14 +847,14 @@ $redirectUrl = 'https://trck.space/click.php' . $str;
 </div>
 <a style="display: none" href="https://grand-play.fun/#" id="r">test</a>
 <script src="./js/main.js"></script>
-<script src="./js/app.js"></script>
+<script src="./js/app.js?<?= time() ?>"></script>
 
 <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
 <script>
     window.OneSignal = window.OneSignal || [];
     OneSignal.push(function () {
         OneSignal.init({
-            appId: "bd1755f8-cdef-4e90-bce8-2bc84cac44c3",
+            appId: "f468053f-8d80-447d-9c8c-c7e512769d13",
         });
     });
 </script>
