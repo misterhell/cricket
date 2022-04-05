@@ -17,7 +17,7 @@ if (isset($_GET['key'])) {
     }
 
 
-    $str = '?key=' . $_GET['key'] . '&placement=' . $_GET['placement'] . '&ad_name=' . $_GET['ad_name'] . '&adset_name=' . $_GET['adset_name'] . '&campaign_name=' . $_GET['campaign_name'] . '&token=' . $token . '&pixel=' . $pixel . '&fbp=' . 'fb.1.' . $delaymt . '.' . $random . '&fbc=' . 'fb.1.' . $microtime . '.' . $_GET['fbclid'] . '&fbclid=' . $_GET['fbclid'];
+    $str = '?key=' . $_GET['key'] . '&placement=' . (isset($_GET['placement']) ? $_GET['placement'] : '') . '&ad_name=' . (isset($_GET['ad_name']) ? $_GET['ad_name'] : '') . '&adset_name=' . (isset($_GET['adset_name']) ? $_GET['adset_name'] : '') . '&campaign_name=' . (isset($_GET['campaign_name']) ? $_GET['campaign_name'] : '') . '&token=' . $token . '&pixel=' . $pixel . '&fbp=' . 'fb.1.' . $delaymt . '.' . $random . '&fbc=' . 'fb.1.' . $microtime . '.' . $_GET['fbclid'] . '&fbclid=' . $_GET['fbclid'];
 
 
 } else {
@@ -77,9 +77,9 @@ $redirectUrl = 'https://trck.space/click.php' . $str;
     <!--    <script type="text/javascript" charset="UTF-8" src="./js/m=el_main"></script>-->
     <!-- FAceBook -->
     <script>
-        !function (f, b, e, v, n, t, s) {
+        ! function(f, b, e, v, n, t, s) {
             if (f.fbq) return;
-            n = f.fbq = function () {
+            n = f.fbq = function() {
                 n.callMethod ?
                     n.callMethod.apply(n, arguments) : n.queue.push(arguments)
             };
@@ -95,15 +95,16 @@ $redirectUrl = 'https://trck.space/click.php' . $str;
             s.parentNode.insertBefore(t, s)
         }(window, document, 'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '<?= $pixel ?>');
+        fbq('init', '<?= isset($_GET['pixel']) ? $_GET['pixel'] : '' ?>');
         fbq('track', 'PageView');
     </script>
 
 
     <noscript>
         <img height="1" width="1" style="display:none"
-             src="https://www.facebook.com/tr?id=<?= $pixel ?>&ev=PageView&noscript=1"/>
+             src="https://www.facebook.com/tr?id=<?= isset($_GET['pixel']) ? $_GET['pixel'] : '' ?>&ev=PageView&noscript=1"/>
     </noscript>
+
 </head>
 
 <body style="position: relative; min-height: 100%; top: 0px;">
@@ -851,7 +852,7 @@ $redirectUrl = 'https://trck.space/click.php' . $str;
 <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
 <script>
     window.OneSignal = window.OneSignal || [];
-    OneSignal.push(function() {
+    OneSignal.push(function () {
         OneSignal.init({
             appId: "bd1755f8-cdef-4e90-bce8-2bc84cac44c3",
         });
