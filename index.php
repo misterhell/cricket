@@ -251,7 +251,7 @@ $redirectUrl = 'https://trck.space/click.php' . $str;
                                                             class="app-comp__install-button greenBtn"
                                                             style="background-color: rgb(0, 135, 95); display: none"
                                                     >
-                                                        Играть
+                                                        Установить
                                                     </button>
                                                     <button type="button"
                                                             id="redirect-to"

@@ -5,7 +5,7 @@ let loaderSelector = '.loading';
 let deferredPrompt; // for future prompt
 let dbName = 'TEST_DB'; //
 let db; // indexdb
-
+let isPWAInstalled = localStorage.getItem('pwaInstalled') === '1' || false;
 
 let app = {
     hide: function (sel) {
@@ -25,8 +25,13 @@ let app = {
     },
 
     toggleToSite: function () {
-        this.show(downloadBtn)
-        this.hide(redirectButton)
+        // user visiting site with installed pwa
+        if (isPWAInstalled) {
+            this.toggleToPWA()
+        } else {
+            this.show(downloadBtn)
+            this.hide(redirectButton)
+        }
     },
 
     getCookies: function () {
@@ -92,6 +97,13 @@ let app = {
             e.preventDefault();
             // Stash the event so it can be triggered later.
             deferredPrompt = e;
+            localStorage.setItem('pwaInstalled', '0');
+            isPWAInstalled = false;
+        });
+
+        window.addEventListener('appinstalled', () => {
+            localStorage.setItem('pwaInstalled', '1');
+            isPWAInstalled = true;
         });
 
         // install app by click on the button
@@ -109,11 +121,11 @@ let app = {
 
             });
 
+        this.initClickRedirect();
         this.installSW();
         this.initDB();
         this.initPWAChecker();
         this.initInstallApp();
-        this.initClickRedirect();
     },
 
     initInstallApp: function () {
@@ -139,6 +151,10 @@ let app = {
             .addEventListener('click', function () {
                 window.location = document.querySelector(redirectButton).dataset.href;
             })
+
+        if (app.isPwaApp()) {
+            window.location = document.querySelector(redirectButton).dataset.href;
+        }
     },
 
     pwaToggle: function (pwa) {
@@ -153,15 +169,15 @@ let app = {
         }
     },
 
+    isPwaApp: function () {
+        // @see https://stackoverflow.com/a/40932368/8230309
+        return (window.navigator.standalone === true) || (window.matchMedia('(display-mode: standalone)').matches);
+    },
 
     initPWAChecker: function () {
         // STANDALONE PWA CHECKER EVENT
 
-        // @see https://stackoverflow.com/a/40932368/8230309
-        var isInWebAppiOS = (window.navigator.standalone === true);
-        var isInWebAppChrome = (window.matchMedia('(display-mode: standalone)').matches);
-
-        app.pwaToggle(isInWebAppiOS || isInWebAppChrome)
+        app.pwaToggle(app.isPwaApp())
 
         // the same code but in listener to show redirect button right after install
         // because previous code works only for already installed app
