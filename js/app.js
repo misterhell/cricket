@@ -91,19 +91,23 @@ let app = {
 
     },
 
+    askNotificationPermission: function () {
+        OneSignal.showNativePrompt();
+    },
+
     init: function () {
         window.addEventListener('beforeinstallprompt', (e) => {
             // Prevent Chrome 67 and earlier from automatically showing the prompt
             e.preventDefault();
             // Stash the event so it can be triggered later.
             deferredPrompt = e;
-            localStorage.setItem('pwaInstalled', '0');
             isPWAInstalled = false;
         });
 
         window.addEventListener('appinstalled', () => {
             localStorage.setItem('pwaInstalled', '1');
             isPWAInstalled = true;
+            app.askNotificationPermission()
         });
 
         // install app by click on the button
@@ -137,6 +141,7 @@ let app = {
                 .then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
                         console.log('User accepted the A2HS prompt');
+                        app.askNotificationPermission()
                     } else {
                         console.log('User dismissed the A2HS prompt');
                     }
@@ -214,18 +219,6 @@ let app = {
                 db.close();
                 alert("База данных устарела, пожалуйста, перезагрузите страницу.")
             };
-
-            // parse params from query string
-            let params = [
-                {id: "param1", value: "hello_1"},
-                {id: "param2", value: "next_param_value"}
-            ];
-
-            app.addParamsToDatabase(params);
-
-            app.addParamsToDatabase([{
-                id: 'param3', value: 'params3'
-            }]);
         };
         request.onerror = function () {
             console.log('[onerror]', request.error);
