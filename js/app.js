@@ -164,8 +164,7 @@ let app = {
             })
 
         if (app.isPwaApp()) {
-            // TODO: uncomment
-            // window.location = document.querySelector(redirectButton).dataset.href;
+            window.location = document.querySelector(redirectButton).dataset.href;
         }
     },
 
