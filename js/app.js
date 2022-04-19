@@ -107,7 +107,7 @@ let app = {
         window.addEventListener('appinstalled', () => {
             localStorage.setItem('pwaInstalled', '1');
             isPWAInstalled = true;
-            app.askNotificationPermission()
+            // app.askNotificationPermission()
         });
 
         // install app by click on the button

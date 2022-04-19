@@ -1,7 +1,7 @@
 {
- "name": "Pwa app",
- "short_name": "pwa-app",
- "description": "hello",
+ "name": "Cricket Winner",
+ "short_name": "Cricket Winner",
+ "description": "This app made for you favor",
  "lang": "en-US",
  "start_url": "/?pwa=true",
  "display": "standalone",
