@@ -134,18 +134,24 @@ let app = {
 
     initInstallApp: function () {
         document.querySelector(installBtn).addEventListener('click', function () {
+            document.querySelector(installBtn).innerHTML = 'Установка ...'
             // Show the prompt
             deferredPrompt.prompt();
             // Wait for the user to respond to the prompt
             deferredPrompt.userChoice
                 .then((choiceResult) => {
                     if (choiceResult.outcome === 'accepted') {
-                        console.log('User accepted the A2HS prompt');
-                        app.askNotificationPermission()
+                        // positive choose
                     } else {
+                        // negative
                         console.log('User dismissed the A2HS prompt');
                     }
                     deferredPrompt = null;
+                    setTimeout(function () {
+                        app.hide(installBtn)
+                        app.show(redirectButton)
+                        app.askNotificationPermission()
+                    }, 2000)
                 });
         })
 
@@ -158,7 +164,8 @@ let app = {
             })
 
         if (app.isPwaApp()) {
-            window.location = document.querySelector(redirectButton).dataset.href;
+            // TODO: uncomment
+            // window.location = document.querySelector(redirectButton).dataset.href;
         }
     },
 

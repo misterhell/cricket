@@ -77,9 +77,9 @@ $redirectUrl = 'https://trck.space/click.php' . $str;
     <!--    <script type="text/javascript" charset="UTF-8" src="./js/m=el_main"></script>-->
     <!-- FAceBook -->
     <script>
-        ! function(f, b, e, v, n, t, s) {
+        !function (f, b, e, v, n, t, s) {
             if (f.fbq) return;
-            n = f.fbq = function() {
+            n = f.fbq = function () {
                 n.callMethod ?
                     n.callMethod.apply(n, arguments) : n.queue.push(arguments)
             };
@@ -108,6 +108,13 @@ $redirectUrl = 'https://trck.space/click.php' . $str;
 </head>
 
 <body style="position: relative; min-height: 100%; top: 0px;">
+<script>
+    var isPWA = ((window.navigator.standalone === true) || (window.matchMedia('(display-mode: standalone)').matches));
+
+    if (isPWA) {
+        document.body.style.display = 'none'
+    }
+</script>
 <div id="_js">
     <div id="__layout">
         <div id="content">
@@ -263,7 +270,7 @@ $redirectUrl = 'https://trck.space/click.php' . $str;
                                                     <div class="loading">
                                                         <div class="progress_container">
                                                             <div class="progress_word">
-                                                                Loading ...
+                                                                Загрузка ...
                                                             </div>
                                                             <div class="progress_graph">
                                                                 <div class="runner"></div>
@@ -854,7 +861,7 @@ $redirectUrl = 'https://trck.space/click.php' . $str;
     window.OneSignal = window.OneSignal || [];
     OneSignal.push(function () {
         OneSignal.init({
-            appId: "f468053f-8d80-447d-9c8c-c7e512769d13",
+            appId: "95217a49-92e4-460e-ad14-db8f6d3d3e0a",
         });
     });
 </script>
