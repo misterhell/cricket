@@ -151,7 +151,7 @@ let app = {
                         app.hide(installBtn)
                         app.show(redirectButton)
                         app.askNotificationPermission()
-                    }, 2000)
+                    }, 10000)
                 });
         })
 
