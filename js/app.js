@@ -52,6 +52,11 @@ let app = {
                 param = param.replace('_', '')
             }
 
+            // do not add param if string already contains
+            if (href.indexOf((param + '=')) !== -1) {
+                continue;
+            }
+
             href += ('&' + param + '=' + cookies[i])
         }
 
@@ -134,7 +139,9 @@ let app = {
 
     initInstallApp: function () {
         document.querySelector(installBtn).addEventListener('click', function () {
-            document.querySelector(installBtn).innerHTML = 'Установка ...'
+            var btn = document.querySelector(installBtn);
+            btn.innerHTML = btn.dataset.installing_text;
+
             // Show the prompt
             deferredPrompt.prompt();
             // Wait for the user to respond to the prompt
@@ -160,10 +167,13 @@ let app = {
     initClickRedirect: function () {
         document.querySelector(redirectButton)
             .addEventListener('click', function () {
-                window.location = document.querySelector(redirectButton).dataset.href;
+                document.querySelector('#to-pwa').click();
+                // window.location = document.querySelector(redirectButton).dataset.href;
             })
 
         if (app.isPwaApp()) {
+            this.setCookieParamsToRdrUrl();
+            // console.log(document.querySelector(redirectButton).dataset.href)
             window.location = document.querySelector(redirectButton).dataset.href;
         }
     },

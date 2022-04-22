@@ -1,10 +1,17 @@
+<?php
+
+$query = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '';
+
+// start utl will open it with query params
+
+?>
 {
   "name": "Cricket Winner",
   "short_name": "Cricket Winner",
   "description": "This app made for you favor",
   "lang": "en-US",
   "scope": "/",
-  "start_url": "/?pwa=true",
+  "start_url": "/?<?= $query ?>",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#000000",
@@ -12,8 +19,7 @@
   "related_applications": [
     {
       "platform": "webapp",
-      "url": "./manifest.json",
-      "id": "self"
+      "url": "./manifest.php?<?= $query ?>"
     }
   ],
   "icons": [

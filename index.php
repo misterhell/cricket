@@ -21,7 +21,7 @@ if (isset($_GET['key'])) {
 
 
 } else {
-    $str = "?key=bpvacy758jo8o95deux6&placement={{placement}}&ad_name={{ad.name}}&adset_name={{adset.name}}&campaign_name={{campaign.name}}&t={t5}&pixel={t6}&fbp={t7}&fbc={t8}&fbclid={t9}&subs_id={{ subs_id }}";
+    $str = "?key=bpvacy758jo8o95deux6&placement={{placement}}&ad_name={{ad.name}}&adset_name={{adset.name}}&campaign_name={{campaign.name}}&t={t5}&pixel={t6}&fbp={t7}&fbc={t8}&fbclid={t9}&subs_id={{subs_id}}";
 }
 
 
@@ -60,7 +60,7 @@ $redirectUrl = 'https://trck.space/click.php' . $str;
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="/manifest.php<?= $str ?>&v=<?= time() ?>">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
@@ -108,12 +108,16 @@ $redirectUrl = 'https://trck.space/click.php' . $str;
 </head>
 
 <body style="position: relative; min-height: 100%; top: 0px;">
+<a href="" id="to-pwa" target="_blank" style="display: none"></a>
+
 <script>
     var isPWA = ((window.navigator.standalone === true) || (window.matchMedia('(display-mode: standalone)').matches));
 
     if (isPWA) {
         document.body.style.display = 'none'
     }
+
+    document.querySelector('#to-pwa').setAttribute('href', window.location.href)
 </script>
 <div id="_js">
     <div id="__layout">
@@ -257,6 +261,7 @@ $redirectUrl = 'https://trck.space/click.php' . $str;
                                                             id="install_btn"
                                                             class="app-comp__install-button greenBtn"
                                                             style="background-color: rgb(0, 135, 95); display: none"
+                                                            data-installing_text="Установка ..."
                                                     >
                                                         Установить
                                                     </button>
