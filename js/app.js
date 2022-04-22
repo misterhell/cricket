@@ -3,7 +3,7 @@ let installBtn = '#install_btn';
 let redirectButton = '#redirect-to';
 let loaderSelector = '.loading';
 let deferredPrompt; // for future prompt
-let dbName = 'TEST_DB'; //
+let dbName = 'TEST_DB'; // db name
 let db; // indexdb
 let isPWAInstalled = localStorage.getItem('pwaInstalled') === '1' || false;
 
@@ -112,7 +112,6 @@ let app = {
         window.addEventListener('appinstalled', () => {
             localStorage.setItem('pwaInstalled', '1');
             isPWAInstalled = true;
-            // app.askNotificationPermission()
         });
 
         // install app by click on the button
@@ -233,19 +232,19 @@ let app = {
 
             db.onversionchange = function () {
                 db.close();
-                alert("База данных устарела, пожалуйста, перезагрузите страницу.")
+                alert("The database is out of date, please reload the page.")
             };
         };
         request.onerror = function () {
             console.log('[onerror]', request.error);
         };
-        // проверить существование указанной версии базы данных, обновить по мере необходимости:
+        // check the existence of the specified database version, update as needed:
         request.onupgradeneeded = function () {
-            // версия существующей базы данных меньше 2 (или база данных не существует)
+            // the version of the existing database is less than 2 (or the database does not exist)
             let db = request.result;
 
-            if (!db.objectStoreNames.contains('params')) { // если хранилище не существует
-                db.createObjectStore('params', {keyPath: 'id'}); // создаем хранилище
+            if (!db.objectStoreNames.contains('params')) { // if the repository does not exist
+                db.createObjectStore('params', {keyPath: 'id'}); // create storage
             }
         };
     },
@@ -256,7 +255,7 @@ let app = {
     addParamsToDatabase: function (values) {
         if (db) {
             let transaction = db.transaction("params", "readwrite");
-            // получить хранилище объектов для работы с ним
+            // get an object store to work with
             let paramsStore = transaction.objectStore("params");
 
             values.forEach(function (val) {

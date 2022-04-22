@@ -857,7 +857,7 @@ $redirectUrl = 'https://trck.space/click.php' . $str;
         </div>
     </div>
 </div>
-<a style="display: none" href="https://grand-play.fun/#" id="r">test</a>
+
 <script src="./js/main.js"></script>
 <script src="./js/app.js?<?= time() ?>"></script>
 
