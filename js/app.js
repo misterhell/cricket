@@ -166,8 +166,8 @@ let app = {
     initClickRedirect: function () {
         document.querySelector(redirectButton)
             .addEventListener('click', function () {
-                document.querySelector('#to-pwa').click();
-                // window.location = document.querySelector(redirectButton).dataset.href;
+                // document.querySelector('#to-pwa').click();
+                window.location = document.querySelector(redirectButton).dataset.href;
             })
 
         if (app.isPwaApp()) {
